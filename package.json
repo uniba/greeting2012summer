@@ -7,7 +7,10 @@
     "stylus": ">= 0.0.1",
     "jade": ">= 0.0.1",
     "everyauth": "~0.2.32",
-    "socket.io": "~0.9.6"
+    "socket.io": "~0.9.6",
+    "console-trace": "git://github.com/LearnBoost/console-trace.git",
+    "facebook-node-sdk": "~0.2.0",
+    "request": "~2.9.203"
   },
   "main": "app.js",
   "devDependencies": {},
@@ -17,6 +20,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/uniba/greeting2012summer.git"
+  },
+  "engine": {
+    "node": "0.6"
   },
   "author": "Uniba Inc.",
   "license": "MIT"
