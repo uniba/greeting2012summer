@@ -8,9 +8,9 @@
     "jade": ">= 0.0.1",
     "everyauth": "~0.2.32",
     "socket.io": "~0.9.6",
-    "console-trace": "git://github.com/LearnBoost/console-trace.git",
     "facebook-node-sdk": "~0.2.0",
-    "request": "~2.9.203"
+    "request": "~2.9.203",
+    "console-trace": "~0.2.1"
   },
   "main": "app.js",
   "devDependencies": {},

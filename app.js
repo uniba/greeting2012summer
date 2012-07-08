@@ -7,7 +7,7 @@ var express = require('express')
   , config = require('./config')
   , routes = require('./routes');
 
-// require('console-trace')({ always: true });
+require('console-trace')({ always: true });
 
 var app = module.exports = express.createServer();
 
