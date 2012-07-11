@@ -15,7 +15,9 @@
   "main": "app.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app",
+    "start-dev": "node-dev app"
   },
   "repository": {
     "type": "git",

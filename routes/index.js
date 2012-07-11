@@ -4,13 +4,13 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express', action: 'index' })
+  res.render('index');
 };
 
 exports.about = function(req, res){
-  res.render('about', { title: 'Express', action: 'about' })
+  res.render('about');
 };
 
 exports.console = function(req, res){
-  res.render('console', { title: 'Express', action: 'console' })
+  res.render('console');
 };
