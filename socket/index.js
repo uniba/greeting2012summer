@@ -16,11 +16,15 @@ module.exports = function(app) {
       io.sockets.emit('image', 'image/png', new Buffer(body, 'binary').toString('base64'));
       small.emit('image', 'image/png', new Buffer(body, 'binary').toString('base64'));
       large.emit('image', 'image/png', new Buffer(body, 'binary').toString('base64'));
-    })
+    });
   });
   
   app.on('facebookLogin', function(data) {
-    
+    request({ url: 'http://graph.facebook.com/' + data.id + '/picture', encoding: 'binary' }, function(err, res, body) {
+      io.sockets.emit('image', 'image/jpg', new Buffer(body, 'binary').toString('base64'));
+      small.emit('image', 'image/jpg', new Buffer(body, 'binary').toString('base64'));
+      large.emit('image', 'image/jpg', new Buffer(body, 'binary').toString('base64'));
+    });
   });
   
   small.on('connection', function(client) {

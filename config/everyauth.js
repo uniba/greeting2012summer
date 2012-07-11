@@ -1,5 +1,6 @@
 
-var everyauth = require('everyauth')
+var inspect = require('util').inspect
+  , everyauth = require('everyauth')
   , Facebook = require('facebook-node-sdk')
   , auth = require('./auth.json');
 
@@ -14,7 +15,7 @@ module.exports = function(app) {
     .consumerSecret(env.twitter.consumerSecret)
     .findOrCreateUser(function() {
       var promise = this.Promise();
-      console.log(arguments);
+      // console.log(arguments);
       app.emit('twitterLogin', arguments[3]);
       promise.fullfil();
       return promise;
@@ -29,8 +30,7 @@ module.exports = function(app) {
     .scope('email,user_about_me,friends_about_me,publish_stream')
     .findOrCreateUser(function() {
       var promise = this.Promise();
-      console.log(arguments);
-      app.emit('facebookLogin', arguments);
+      app.emit('facebookLogin', arguments[3]);
       promise.fullfil();
       return promise;
     })
