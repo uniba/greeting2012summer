@@ -4,6 +4,7 @@ var socket = require('socket.io')
 
 module.exports = function(app) {
   var io = socket.listen(app)
+    , clients = []
     , small = io.of('/screen/small')
     , large = io.of('/screen/large');
 
@@ -27,6 +28,20 @@ module.exports = function(app) {
     });
   });
   
+  io.sockets.on('connection', function(client) {
+    clients.push(client);
+    
+    client.broadcast.emit('createSpirit', client.id);
+    
+    client.on('disconnect', function() {
+      client.broadcast.emit('removeSpirit', client.id);
+    });
+    
+    client.on('moveSpirit', function(x, y) {
+      client.broadcast.emit('moveSpirit', client.id, x, y);
+    });
+  });
+    
   small.on('connection', function(client) {
     
   });

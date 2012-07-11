@@ -9,7 +9,25 @@ ul
   -webkit-filter: sepia(100%)
 
 .deadee-monochrome
-  -webkit-filter: grayscale(100%)  
+  -webkit-filter: grayscale(100%)
+
+.spirits
+  -webkit-animation-name: spirits-animation
+  -webkit-animation-direction: alternate
+  -webkit-animation-iteration-count: infinite
+  -webkit-animation-duration: 1s
+  -webkit-transition-property: top left
+  -webkit-transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000)
+  -webkit-transition-duration: 1000ms
+
+
+@-webkit-keyframes spirits-animation
+  from
+    -webkit-transform: translateY(-4px)
+    opacity: 0.8
+  to
+    -webkit-transform: translateY(0px)
+    opacity: 0.3
 
 #footer
   margin-bottom 100px
