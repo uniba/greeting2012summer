@@ -15,10 +15,8 @@ module.exports = function(app) {
     .consumerSecret(env.twitter.consumerSecret)
     .findOrCreateUser(function() {
       var promise = this.Promise();
-      // console.log(arguments);
       app.emit('twitterLogin', arguments[3]);
-      promise.fullfil();
-      return promise;
+      return {};
     })
     .redirectPath('/')
     .handleAuthCallbackError(function(req, res) {
@@ -27,12 +25,11 @@ module.exports = function(app) {
   everyauth.facebook
     .appId(env.facebook.appId)
     .appSecret(env.facebook.appSecret)
-    .scope('email,user_about_me,friends_about_me,publish_stream')
+    .scope('user_about_me,friends_about_me,publish_stream')
     .findOrCreateUser(function() {
       var promise = this.Promise();
       app.emit('facebookLogin', arguments[3]);
-      promise.fullfil();
-      return promise;
+      return {};
     })
     .redirectPath('/');
   
