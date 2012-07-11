@@ -7,13 +7,18 @@ $(function() {
   var canvas = document.createElement('canvas')
     , ctx = canvas.getContext('2d');
     
-  canvas.width = 480;
-  canvas.height = 320;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.className = 'deadee-sepia';
   
   screen.on('image', function(type, base64) {
     var image = new Image();
     image.onload = function(e) {
-      ctx.drawImage(image, Math.random() * canvas.width, Math.random() * canvas.height, 128, 128);
+      var ratio = canvas.width / image.width
+        , width = image.width * ratio
+        , height = image.height * ratio;
+      
+      ctx.drawImage(image, 0, ~~(canvas.height / 2 - height / 2), ~~width, ~~width);
     };
     image.src = 'data:' + type + ';base64,' + base64;
   });
