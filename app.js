@@ -16,7 +16,7 @@ config(app);
 // Configuration
 
 app.helpers({
-    title: 'Express'
+    title: 'Uniba House'
 });
 
 app.dynamicHelpers({
