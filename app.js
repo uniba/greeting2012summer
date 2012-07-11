@@ -19,6 +19,12 @@ app.helpers({
     title: 'Express'
 });
 
+app.dynamicHelpers({
+    action: function(req, res) {
+      return req.path.replace('/', ' ').trim().replace(' ', '/') || 'index';
+    }
+});
+
 // Routes
 
 app.get('/', routes.index);
