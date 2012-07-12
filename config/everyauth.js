@@ -18,7 +18,7 @@ module.exports = function(app) {
       app.emit('twitterLogin', arguments[3]);
       return {};
     })
-    .redirectPath('/')
+    .redirectPath('/console')
     .handleAuthCallbackError(function(req, res) {
     });
   
@@ -31,7 +31,7 @@ module.exports = function(app) {
       app.emit('facebookLogin', arguments[3]);
       return {};
     })
-    .redirectPath('/');
+    .redirectPath('/console');
   
   everyauth.helpExpress(app);
   
