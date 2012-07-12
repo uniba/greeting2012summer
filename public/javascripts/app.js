@@ -41,8 +41,6 @@ $(function() {
   });
   
   socket.on('moveSpirit', function(id, x, y) {
-    console.log(arguments);
-    
     if (!spirits[id]) {
       spirits[id] = createSpirit();
     }
