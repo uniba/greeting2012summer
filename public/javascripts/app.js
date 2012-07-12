@@ -25,7 +25,7 @@ $(function() {
   }
 
   $(document).on('mousemove', function(e) { 
-    socket.emit('moveSpirit', e.clientX / windowWidth, e.clientY / windowHeight);
+    socket.emit('moveSpirit', e.clientX / windowWidth, e.pageY);
   });
   
   socket.on('connection', function() {
@@ -46,7 +46,7 @@ $(function() {
     }
     spirits[id].style.display = 'block';
     spirits[id].style.left = (x * windowWidth) + 'px';
-    spirits[id].style.top = (y * windowHeight) + 'px';
+    spirits[id].style.top = y + 'px';
   });
   
   socket.on('removeSpirit', function(id) {
