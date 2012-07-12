@@ -41,6 +41,7 @@ module.exports = function(app) {
     
     client.on('disconnect', function() {
       client.broadcast.emit('removeSpirit', client.id);
+      io.sockets.emit('numberOfConnection', Object.keys(io.sockets.sockets).length);
     });
     
     client.on('moveSpirit', function(x, y) {
