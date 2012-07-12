@@ -3,8 +3,15 @@ var socket = io.connect();
 
 $(function() {
   
-  var spirits = {};
+  var spirits = {}
+    , windowWidth = $(window).width()
+    , windowHeight = $(window).height();
 
+  $(window).on('resize', function() {
+    windowWidth = $(this).width();
+    windowHeight = $(this).height();
+  });
+  
   function createSpirit() {
     var img = document.createElement('img');
     img.src = '/images/fire_anime.gif';
@@ -17,11 +24,15 @@ $(function() {
     return img;
   }
 
-  $(document).on('mousemove', function(e) {
-    socket.emit('moveSpirit', e.clientX, e.clientY);
+  $(document).on('mousemove', function(e) { 
+    socket.emit('moveSpirit', e.clientX / windowWidth, e.clientY / windowHeight);
   });
   
   socket.on('connection', function() {
+  });
+  
+  socket.on('numberOfConnection', function(n) {
+    $('.number-of-connection').text(n);
   });
   
   socket.on('createSpirit', function(id) {
@@ -36,8 +47,8 @@ $(function() {
       spirits[id] = createSpirit();
     }
     spirits[id].style.display = 'block';
-    spirits[id].style.left = x + 'px';
-    spirits[id].style.top = y + 'px';
+    spirits[id].style.left = (x * windowWidth) + 'px';
+    spirits[id].style.top = (y * windowHeight) + 'px';
   });
   
   socket.on('removeSpirit', function(id) {
