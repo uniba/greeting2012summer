@@ -34,11 +34,10 @@ module.exports = function(app) {
   });
   
   io.sockets.on('connection', function(client) {
-    console.log(inspect(io.sockets));
     clients.push(client);
     
     client.broadcast.emit('createSpirit', client.id);
-    io.sockets.emit('numberOfConnection', Object.keys(io.sockets.sockets).length)
+    io.sockets.emit('numberOfConnection', Object.keys(io.sockets.sockets).length);
     
     client.on('disconnect', function() {
       client.broadcast.emit('removeSpirit', client.id);
