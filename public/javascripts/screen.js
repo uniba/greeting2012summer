@@ -17,8 +17,10 @@ $(function() {
       var ratio = canvas.width / image.width
         , width = image.width * ratio
         , height = image.height * ratio;
-      
-      ctx.drawImage(image, 0, ~~(canvas.height / 2 - height / 2), ~~width, ~~width);
+      $(canvas).animate({ opacity: 0 }, function() {
+        ctx.drawImage(image, 0, ~~(canvas.height / 2 - height / 2), ~~width, ~~width);
+        $(canvas).animate({ opacity: 1 });
+      });
     };
     image.src = 'data:' + type + ';base64,' + base64;
   });
