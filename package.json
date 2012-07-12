@@ -10,7 +10,8 @@
     "socket.io": "~0.9.6",
     "facebook-node-sdk": "~0.2.0",
     "request": "~2.9.203",
-    "console-trace": "~0.2.1"
+    "console-trace": "~0.2.1",
+    "nib": "~0.7.0"
   },
   "main": "app.js",
   "devDependencies": {},

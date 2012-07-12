@@ -1,3 +1,5 @@
+@import 'nib'
+
 body
   background-color #000
 
@@ -6,27 +8,26 @@ ul
   padding 0
 
 .deadee-sepia
-  -webkit-filter: sepia(100%)
+  vendor(filter, sepia(100%))
 
 .deadee-monochrome
-  -webkit-filter: grayscale(100%)
+  vendor(filter, grayscale(100%))
 
 .spirits
-  -webkit-animation-name: spirits-animation
-  -webkit-animation-direction: alternate
-  -webkit-animation-iteration-count: infinite
-  -webkit-animation-duration: 1s
-  -webkit-transition-property: top left
-  -webkit-transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000)
-  -webkit-transition-duration: 1000ms
+  animation-name: spirits-animation
+  animation-direction: alternate
+  snimation-iteration-count: infinite
+  animation-duration: 1s
+  transition-property: top left
+  transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000)
+  transition-duration: 1000ms
 
-
-@-webkit-keyframes spirits-animation
+@keyframes spirits-animation
   from
-    -webkit-transform: translateY(-4px)
+    transform: translateY(-4px)
     opacity: 0.8
   to
-    -webkit-transform: translateY(0px)
+    transform: translateY(0px)
     opacity: 0.3
 
 #footer

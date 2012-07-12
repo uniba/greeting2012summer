@@ -1,5 +1,14 @@
 
-var express = require('express');
+var express = require('express')
+  , stylus = require('stylus')
+  , nib = require('nib');
+
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .set('compress', true)
+    .use(nib());
+}
 
 module.exports = function(app) {
   
@@ -12,7 +21,10 @@ module.exports = function(app) {
         secret: 'all your ghost are belong to us.'
     }));
     app.use(express.methodOverride());
-    app.use(require('stylus').middleware({ src: __dirname + '/../public' }));
+    app.use(stylus.middleware({
+        src: __dirname + '/../public'
+      , compile: compile
+    }));
     app.use(app.router);
     app.use(express.static(__dirname + '/../public'));
   });
