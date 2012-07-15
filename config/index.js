@@ -1,5 +1,6 @@
 
 var express = require('express')
+  , store = new express.session.MemoryStore()
   , stylus = require('stylus')
   , nib = require('nib');
 
@@ -15,10 +16,12 @@ module.exports = function(app) {
   app.configure('all', function() {
     app.set('views', __dirname + '/../views');
     app.set('view engine', 'jade');
+    app.set('session store', store);
     app.use(express.bodyParser());
     app.use(express.cookieParser());
     app.use(express.session({
         secret: 'all your ghost are belong to us.'
+      , store: store
     }));
     app.use(express.methodOverride());
     app.use(stylus.middleware({

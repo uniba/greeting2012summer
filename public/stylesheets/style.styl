@@ -16,6 +16,9 @@ ul
   vendor(filter, grayscale(100%))
 
 .spirits
+  text-align: center
+  position: absolute
+  z-index: 10000
   animation-name: spirits-animation
   animation-direction: alternate
   animation-iteration-count: infinite
@@ -23,6 +26,10 @@ ul
   transition-property: top left
   transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000)
   transition-duration: 1000ms
+  .avatar
+    position: relative
+    z-index: 10001
+    bottom: 0
 
 @keyframes spirits-animation
   from

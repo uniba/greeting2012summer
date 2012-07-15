@@ -1,5 +1,6 @@
 
-var socket = io.connect();
+var socket = io.connect()
+  , cursor = io.connect('/cursor');
 
 $(function() {
   
@@ -12,35 +13,46 @@ $(function() {
     windowHeight = $(this).height();
   });
   
-  function createSpirit() {
-    var img = document.createElement('img');
-    img.src = '/images/fire_anime.gif';
-    img.style.display = 'none';
-    img.style.position = 'absolute';
-    img.style.zIndex = 10000;
-    img.className = 'spirits';
-    document.body.appendChild(img);
+  function createSpirit(data) {
+    var container = document.createElement('div')
+      , img = document.createElement('img')
+      , avatar = document.createElement('img');
     
-    return img;
+    $(container).addClass('spirits');
+    $(img).hide().attr('src', '/images/fire_anime.gif');
+    
+    if (data) {
+      avatar.src = 'data:image/png;base64,' + data;
+      $(avatar).addClass('avatar');
+      container.appendChild(avatar);
+    }
+    
+    container.appendChild(img);
+    document.body.appendChild(container);
+    
+    $(img).fadeIn();
+    
+    return container;
   }
 
-  $(document).on('mousemove', function(e) { 
-    socket.emit('moveSpirit', e.clientX / windowWidth, e.pageY);
-  });
-  
   socket.on('connection', function() {
+    
+  });
+
+  $(document).on('mousemove', function(e) { 
+    cursor.emit('moveSpirit', e.clientX / windowWidth, e.pageY);
   });
   
-  socket.on('numberOfConnection', function(n) {
+  cursor.on('numberOfConnection', function(n) {
     $('.number-of-connection').text(n);
   });
   
-  socket.on('createSpirit', function(id) {
-    var img = createSpirit();
+  cursor.on('createSpirit', function(id, data) {
+    var img = createSpirit(data);
     spirits[id] = img;
   });
   
-  socket.on('moveSpirit', function(id, x, y) {
+  cursor.on('moveSpirit', function(id, x, y) {
     if (!spirits[id]) {
       spirits[id] = createSpirit();
     }
@@ -49,8 +61,13 @@ $(function() {
     spirits[id].style.top = y + 'px';
   });
   
-  socket.on('removeSpirit', function(id) {
-    document.body.removeChild(spirits[id]);
-    delete spirits[id];
+  cursor.on('removeSpirit', function(id) {
+    $(spirits[id])
+      .fadeOut()
+      .promise()
+      .done(function() {
+        document.body.removeChild(spirits[id]);
+        delete spirits[id];
+      });
   });
 });

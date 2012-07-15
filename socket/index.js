@@ -1,51 +1,79 @@
 
 var inspect = require('util').inspect
+  , connect = require('connect')
   , socket = require('socket.io')
-  , request = require('request');
+  , parseCookie = connect.utils.parseCookie
+  , Session = connect.middleware.session.Session;
 
 module.exports = function(app) {
   var io = socket.listen(app)
+    , sessionStore = app.settings['session store']
     , clients = []
+    , cursor = io.of('/cursor')
     , small = io.of('/screen/small')
     , large = io.of('/screen/large');
-
+    
   io.configure(function() {
-    // TODO:
+    io.set('authorization', function(data, callback) {
+      if (data.headers.cookie) {
+        var cookie = data.headers.cookie
+          , sessId = parseCookie(cookie)['connect.sid'];
+        
+        sessionStore.load(sessId, function(err, sess) {
+          if (err) return callback(err, false);
+          data.session = new Session(data, sess);
+          callback(null, true);
+        });
+      } else {
+        callback(null, false);
+      }
+    });
   });
   
-  app.on('twitterLogin', function(data) {
-    request({ url: data.profile_image_url, encoding: 'binary' }, function(err, res, body) {
-      var base64 = new Buffer(body, 'binary').toString('base64');
-      
-      io.sockets.emit('image', 'image/png', base64);
-      small.emit('image', 'image/png', base64);
-      large.emit('image', 'image/png', base64);
-    });
+  app.on('twitterLogin', function(session) {
+    var base64 = session.avatar.toString('base64');
+    
+    small.emit('image', 'image/png', base64);
+    large.emit('image', 'image/png', base64);
   });
   
   app.on('facebookLogin', function(data) {
-    request({ url: 'http://graph.facebook.com/' + data.id + '/picture', encoding: 'binary' }, function(err, res, body) {
-      var base64 = new Buffer(body, 'binary').toString('base64');
-      
-      io.sockets.emit('image', 'image/jpg', base64);
-      small.emit('image', 'image/jpg', base64);
-      large.emit('image', 'image/jpg', base64);
-    });
+    var base64 = session.avatar.toString('base64');
+    
+    small.emit('image', 'image/jpg', base64);
+    large.emit('image', 'image/jpg', base64);
   });
   
-  io.sockets.on('connection', function(client) {
-    clients.push(client);
+  cursor.on('connection', function(client) {
+    var handshake = client.handshake
+      , avatar = handshake.session.avatar
+      , base64 = null;
     
-    client.broadcast.emit('createSpirit', client.id);
-    io.sockets.emit('numberOfConnection', Object.keys(io.sockets.sockets).length);
+    if (avatar) base64 = new Buffer(avatar, 'binary').toString('base64');
+    client.broadcast.emit('createSpirit', client.id, base64);
+    
+    clients.forEach(function(el, i) {
+      if (!el.handshake) return false;
+      var avatar = el.handshake.session.avatar
+        , base64 = null;
+      
+      if (avatar) base64 = new Buffer(avatar, 'binary').toString('base64');
+      client.emit('createSpirit', el.id, base64);
+    });
+    
+    clients.push(client);
+    cursor.emit('numberOfConnection', Object.keys(cursor.sockets).length);
     
     client.on('disconnect', function() {
       client.broadcast.emit('removeSpirit', client.id);
-      io.sockets.emit('numberOfConnection', Object.keys(io.sockets.sockets).length);
+      cursor.emit('numberOfConnection', Object.keys(cursor.sockets).length);
+      clients = clients.filter(function(el) {
+        return el === client;
+      });
     });
     
     client.on('moveSpirit', function(x, y) {
-      client.broadcast.emit('moveSpirit', client.id, x, y);
+      client.broadcast.volatile.emit('moveSpirit', client.id, x, y);
     });
   });
     
