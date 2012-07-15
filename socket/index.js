@@ -37,7 +37,7 @@ module.exports = function(app) {
     large.emit('image', 'image/png', base64);
   });
   
-  app.on('facebookLogin', function(data) {
+  app.on('facebookLogin', function(session) {
     var base64 = session.avatar.toString('base64');
     
     small.emit('image', 'image/jpg', base64);
