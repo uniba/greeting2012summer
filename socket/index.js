@@ -31,26 +31,20 @@ module.exports = function(app) {
   });
   
   app.on('twitterLogin', function(session) {
-    var base64 = session.avatar.toString('base64');
-    
-    small.emit('image', 'image/png', base64);
-    large.emit('image', 'image/png', base64);
+    small.emit('image', 'image/png', session.avatar);
+    large.emit('image', 'image/png', session.avatar);
   });
   
   app.on('facebookLogin', function(session) {
-    var base64 = session.avatar.toString('base64');
-    
-    small.emit('image', 'image/jpg', base64);
-    large.emit('image', 'image/jpg', base64);
+    small.emit('image', 'image/jpg', session.avatar);
+    large.emit('image', 'image/jpg', session.avatar);
   });
   
   cursor.on('connection', function(client) {
     var handshake = client.handshake
-      , avatar = handshake.session.avatar
-      , base64 = null;
+      , avatar = handshake.session.avatar;
     
-    if (avatar) base64 = new Buffer(avatar, 'binary').toString('base64');
-    client.broadcast.emit('createSpirit', client.id, base64);
+    client.broadcast.emit('createSpirit', client.id, avatar);
     
     clients.forEach(function(el, i) {
       if (!el.handshake) return false;

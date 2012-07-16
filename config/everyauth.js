@@ -19,7 +19,7 @@ module.exports = function(app) {
         , options = { url: data.oauthUser.profile_image_url, encoding: 'binary' };
       
       request(options, function(err, resp, body) {
-        session.avatar = new Buffer(body, 'binary');
+        session.avatar = new Buffer(body, 'binary').toString('base64');
         session.save(function(err) {
           if (err) return promise.fail(err);
           app.emit('twitterLogin', session);
@@ -46,7 +46,7 @@ module.exports = function(app) {
         , options = { url: url, encoding: 'binary' };
       
       request(options, function(err, resp, body) {
-        session.avatar = new Buffer(body, 'binary');
+        session.avatar = new Buffer(body, 'binary').toString('base64');
         session.save(function(err) {
           if (err) return promise.fail(err);
           app.emit('twitterLogin', session);
