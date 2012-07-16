@@ -8,7 +8,7 @@ var inspect = require('util').inspect
 module.exports = function(app) {
   var io = socket.listen(app)
     , sessionStore = app.settings['session store']
-    , clients = []
+    , clients = {}
     , cursor = io.of('/cursor')
     , small = io.of('/screen/small')
     , large = io.of('/screen/large');
@@ -46,24 +46,21 @@ module.exports = function(app) {
     
     client.broadcast.emit('createSpirit', client.id, avatar);
     
-    clients.forEach(function(el, i) {
-      if (!el.handshake) return false;
-      var avatar = el.handshake.session.avatar
-        , base64 = null;
+    Object.keys(clients).forEach(function(key, i) {
+      var c = clients[key]
+        , id = c.client.id
+        , session = c.handshake.session;
       
-      if (avatar) base64 = new Buffer(avatar, 'binary').toString('base64');
-      client.emit('createSpirit', el.id, base64);
+      client.emit('createSpirit', id, session.avatar);
     });
     
-    clients.push(client);
+    clients[client.id] = { client: client, handshake: client.handshake };
     cursor.emit('numberOfConnection', Object.keys(cursor.sockets).length);
     
     client.on('disconnect', function() {
       client.broadcast.emit('removeSpirit', client.id);
       cursor.emit('numberOfConnection', Object.keys(cursor.sockets).length);
-      clients = clients.filter(function(el) {
-        return el === client;
-      });
+      delete clients[client.id];
     });
     
     client.on('moveSpirit', function(x, y) {
