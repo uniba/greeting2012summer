@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git://github.com/uniba/greeting2012summer.git"
   },
-  "engine": {
+  "engines": {
     "node": "0.6"
   },
   "author": "Uniba Inc.",
