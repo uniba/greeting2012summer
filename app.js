@@ -7,7 +7,7 @@ var express = require('express')
   , config = require('./config')
   , routes = require('./routes');
 
-process.on('uncaughtException, function(e) {
+process.on('uncaughtException', function(e) {
   console.log(e);
 });
 
