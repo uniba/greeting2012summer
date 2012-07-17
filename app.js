@@ -7,6 +7,10 @@ var express = require('express')
   , config = require('./config')
   , routes = require('./routes');
 
+process.on('uncaughtException, function(e) {
+  console.log(e);
+});
+
 // require('console-trace')({ always: true });
 
 var app = module.exports = express.createServer();
