@@ -26,7 +26,7 @@ module.exports = function(app) {
   
   everyauth.twitter
     .consumerKey(env.twitter.consumerKey)
-    .consumerSecret(process.env env.twitter.consumerSecret)
+    .consumerSecret(env.twitter.consumerSecret)
     .addToSession(function(session, data) {
       var promise = this.Promise()
         , options = { url: data.oauthUser.profile_image_url, encoding: 'binary' };
