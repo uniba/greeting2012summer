@@ -2,18 +2,31 @@
 var inspect = require('util').inspect
   , request = require('request')
   , everyauth = require('everyauth')
-  , Facebook = require('facebook-node-sdk')
-  , auth = require('./auth.json');
+  , Facebook = require('facebook-node-sdk');
 
 module.exports = function(app) {
 
-  var env = auth[app.settings.env];
+  try {
+    var auth = require('./auth.json')
+      , env = auth[app.settings.env];
+  } catch (e) {
+    var env = {
+            twitter: {
+                consumerKey: process.env.TWITTER_CONSUMER_KEY
+              , consumerSecret: process.env.TWITTER_CONSUMER_SECRET
+            }
+          , facebook: {
+                appId: process.env.FACEBOOK_APP_ID
+              , appSecret: process.env.FACEBOOK_APP_SECRET
+            }
+        };
+  }
   
   everyauth.debug = 'production' !== app.settings.env;
   
   everyauth.twitter
     .consumerKey(env.twitter.consumerKey)
-    .consumerSecret(env.twitter.consumerSecret)
+    .consumerSecret(process.env env.twitter.consumerSecret)
     .addToSession(function(session, data) {
       var promise = this.Promise()
         , options = { url: data.oauthUser.profile_image_url, encoding: 'binary' };
