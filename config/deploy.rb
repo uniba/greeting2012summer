@@ -12,7 +12,7 @@ set :deploy_to, "~/app/#{application}"
 set :deploy_via, :copy
 
 set :node_env, 'production'
-set :node_port, 8383
+set :node_port, 3000
 
 set :default_environment, {
   'PATH' => "~/.nave/installed/0.6.20/bin:$PATH"
