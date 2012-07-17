@@ -15,7 +15,7 @@ set :node_env, 'production'
 set :node_port, 8383
 
 set :default_environment, {
-  'PATH' => "~/.brew/bin:$PATH"
+  'PATH' => "~/.nave/installed/0.6.20/bin:$PATH"
 }
 
 default_run_options[:pty] = true
