@@ -37,6 +37,7 @@ namespace :deploy do
 end
 
 after "deploy:create_symlink", :roles => :app do
+  run "ln -sfv #{shared_path}/auth.json #{current_path}/config"
   run "ln -svf #{shared_path}/node_modules #{current_path}/node_modules"
   run "cd #{current_path} && npm install"
 end
