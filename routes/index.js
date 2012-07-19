@@ -14,3 +14,7 @@ exports.about = function(req, res){
 exports.console = function(req, res){
   res.render('console');
 };
+
+exports.secret = function(req, res){
+  res.render('secret');
+};
