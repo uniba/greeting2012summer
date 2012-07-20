@@ -12,7 +12,8 @@
     "request": "~2.9.203",
     "console-trace": "~0.2.1",
     "nib": "~0.7.0",
-    "connect": "~1.9.2"
+    "connect": "~1.9.2",
+    "osc-min": "0.0.7"
   },
   "main": "app.js",
   "devDependencies": {},
