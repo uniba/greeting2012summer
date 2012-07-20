@@ -2,6 +2,22 @@
 var socket = io.connect()
   , cursor = io.connect('/cursor');
 
+$(function() {
+  $(document.body).on('keypress', function(e) {
+    console.log(e);    
+    switch (e.keyCode) {
+      case 'b'.charCodeAt(0):
+        socket.emit('back');
+        break;
+      case 'f'.charCodeAt(0):
+        socket.emit('forward', 10);
+        break;
+      case 'r'.charCodeAt(0):
+        socket.emit('reset');
+        break;
+    }
+  });
+});
 
 $(function() {
   var audio = new Audio();

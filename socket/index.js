@@ -3,6 +3,8 @@ var inspect = require('util').inspect
   , connect = require('connect')
   , socket = require('socket.io')
   , parseCookie = connect.utils.parseCookie
+  , Rail = require('../lib/rail')
+  , rail = new Rail()
   , Session = connect.middleware.session.Session;
 
 module.exports = function(app) {
@@ -27,6 +29,20 @@ module.exports = function(app) {
       } else {
         callback(null, false);
       }
+    });
+  });
+  
+  io.sockets.on('connection', function(client) {
+    client.on('forward', function(val) {
+      rail.forward(val);
+    });
+    
+    client.on('back', function(val) {
+      rail.back(val);
+    });
+    
+    client.on('reset', function() {
+      rail.reset();
     });
   });
   
