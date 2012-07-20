@@ -2,8 +2,15 @@
 var socket = io.connect()
   , cursor = io.connect('/cursor');
 
+
 $(function() {
-  
+  var audio = new Audio();
+  audio.src = '/assets/music.mp3';
+  audio.loop = true;
+  audio.play();
+});
+
+$(function() {
   var spirits = {}
     , windowWidth = $(window).width()
     , windowHeight = $(window).height();
