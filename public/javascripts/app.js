@@ -7,10 +7,10 @@ $(function() {
     console.log(e);    
     switch (e.keyCode) {
       case 'b'.charCodeAt(0):
-        socket.emit('back');
+        socket.emit('back', 100);
         break;
       case 'f'.charCodeAt(0):
-        socket.emit('forward', 10);
+        socket.emit('forward', 100);
         break;
       case 'r'.charCodeAt(0):
         socket.emit('reset');

@@ -9,7 +9,7 @@ set :scm_verbose, true
 set :git_shallow_clone, 1
 
 set :deploy_to, "~/app/#{application}"
-set :deploy_via, :copy
+set :deploy_via, :remote_cache
 
 set :node_env, 'production'
 set :node_port, 3000
@@ -19,6 +19,7 @@ set :default_environment, {
 }
 
 default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
 
 role :web, "house.local"
 role :app, "house.local"
