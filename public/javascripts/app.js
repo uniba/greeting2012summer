@@ -95,10 +95,49 @@ $(function() {
   });
 });
 
+jQuery.extend( jQuery.easing,
+  {
+  	easeInOutQuad: function (x, t, b, c, d) {
+  		if ((t/=d/2) < 1) return c/2*t*t + b;
+  		return -c/2 * ((--t)*(t-2) - 1) + b;
+  },
+  	easeInBounce: function (x, t, b, c, d) {
+  		return c - jQuery.easing.easeOutBounce (x, d-t, 0, c, d) + b;
+  },
+  	easeOutBounce: function (x, t, b, c, d) {
+  		if ((t/=d) < (1/2.75)) {
+  			return c*(7.5625*t*t) + b;
+  		} else if (t < (2/2.75)) {
+  			return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+  		} else if (t < (2.5/2.75)) {
+  			return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+  		} else {
+  			return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+  		}
+  	},
+  	easeInOutBounce: function (x, t, b, c, d) {
+  		if (t < d/2) return jQuery.easing.easeInBounce (x, t*2, 0, c, d) * .5 + b;
+  		return jQuery.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
+  	}
+});
+
 $(function() {
   setInterval(function(){
-    $('.obake').animate({bottom:'20px'},1000,function(){
-      $('.obake').animate({bottom:0},1000)
-   })
-  }, 1000)
+    $('#console .obake').animate({top:'50px'},1000,'easeInOutQuad',function(){
+      $('#console .obake').animate({top:'30px'},1000,'easeInOutQuad')
+   });
+  }, 2000);
+  setInterval(function(){
+    $('#console div.minikun').animate({top:'20px'},800,'easeInOutQuad',function(){
+      $('#console div.minikun').animate({top:'0px'},800,'easeInOutQuad')
+   });
+  }, 1600);
+  setInterval(function(){
+    $('#console div.akumakun').animate({top:'-100px'},1000,'easeInOutQuad',function(){
+      $('#console div.akumakun').animate({top:'0px'},500,'easeOutBounce')
+   });
+  }, 2000);
+});
+$(window).load(function(){
+  $('#secret .back_to_top').animate({top:0},1000,'easeOutBounce');
 });
