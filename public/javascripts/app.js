@@ -94,3 +94,11 @@ $(function() {
       });
   });
 });
+
+$(function() {
+  setInterval(function(){
+    $('.obake').animate({bottom:'20px'},1000,function(){
+      $('.obake').animate({bottom:0},1000)
+   })
+  }, 1000)
+});
