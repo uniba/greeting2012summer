@@ -1,10 +1,46 @@
 
-var socket = io.connect()
+var route = (function() {
+  var routes = [];
+
+  return function(route, fn) {
+    if (1 == arguments.length) {
+      for (var i = 0, len = routes.length; i < len; ++i) {
+        if (route === routes[i].route
+          || (routes[i].route.test && routes[i].route.test(routes[i].route))) {
+          routes[i].handler();
+        }
+      }
+    } else {
+      routes.push({
+          route: route
+        , handler: fn
+      });
+    }
+  };
+})();
+
+var music
+  , socket = io.connect()
   , cursor = io.connect('/cursor');
 
+route(/^\/(console|about)?$/, function() {
+  var audio = music = new Audio();
+  audio.src = '/assets/music.m4a';
+  audio.loop = true;
+  audio.play();
+});
+
+route('/secret', function() {
+  var audio = music = new Audio();
+  audio.src = '/assets/secret.m4a';
+  audio.loop = true;
+  audio.play();
+});
+
 $(function() {
+  /*
   $(document.body).on('keypress', function(e) {
-    console.log(e);    
+    console.log(e);
     switch (e.keyCode) {
       case 'b'.charCodeAt(0):
         socket.emit('back', 100);
@@ -17,13 +53,15 @@ $(function() {
         break;
     }
   });
-});
+  */
+  
+  $('.back[rel=controller]').on('click', function(e) {
+    socket.emit('back', 100);
+  });
 
-$(function() {
-  var audio = new Audio();
-  audio.src = '/assets/music.mp3';
-  audio.loop = true;
-  audio.play();
+  $('.forward[rel=controller]').on('click', function(e) {
+    socket.emit('forward', 100);
+  });
 });
 
 $(function() {
@@ -34,6 +72,16 @@ $(function() {
   $(window).on('resize', function() {
     windowWidth = $(this).width();
     windowHeight = $(this).height();
+  });
+  
+  $('.pause').on('click', function(e) {
+    if (music) {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.paused();
+      }
+    }
   });
   
   function createSpirit(data) {
@@ -141,3 +189,5 @@ $(function() {
 $(window).load(function(){
   $('#secret .back_to_top').animate({top:0},1000,'easeOutBounce');
 });
+
+route(location.pathname);

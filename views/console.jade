@@ -1,6 +1,6 @@
 #container
   #header
-    .sound
+    .sound.pause
       img(alt="sound_off", height="63", src="images/sound2_on.png", width="57")
     .fire
       img(alt="fire", height="100", src="images/fire_anime.gif", width="100")
@@ -26,23 +26,23 @@
       iframe.ustream(src="http://www.ustream.tv/embed/11533971", width="512", height="295", scrolling="no", frameborder="0", style="border: 0px none transparent;")
       br
       img(alt="unibatv", height="444", src="images/unibatv.png", width="660")
-      .balloon
+      .makimono
         img(alt="twitter", height="495", src="images/makimono.png", width="244")
     .remote
       .commands
         img.how_to_play(alt="how_to_play", height="273", src="images/how_to_play.png", width="206")
       .control
         .l01
-          a(href="#")
+          a.left(href="javascript:void(0);", rel="controller")
             img(alt="controler", height="70", src="images/btn/l01.png", width="70")
         .f01
-          a(href="#")
+          a.forward(href="javascript:void(0);", rel="controller")
             img(alt="controler", height="70", src="images/btn/f01.png", width="70")
         .b01
-          a(href="#")
+          a.back(href="javascript:void(0);", rel="controller")
             img(alt="controler", height="70", src="images/btn/b01.png", width="70")
         .r01
-          a(href="#")
+          a.right(href="javascript:void(0);", rel="controller")
             img(alt="controler", height="70", src="images/btn/r01.png", width="70")
       .controler
         img(alt="controler", height="646", src="images/controler_long.png", width="299")
