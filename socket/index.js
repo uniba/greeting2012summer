@@ -6,7 +6,7 @@ var inspect = require('util').inspect
   , Rail = require('../lib/rail')
   , rail = new Rail()
   , Neck = require('../lib/neck')
-  , neck = new Neck(9)
+  , neck = new Neck(true, 9)
   , Session = connect.middleware.session.Session;
 
 module.exports = function(app) {
