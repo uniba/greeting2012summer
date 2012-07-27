@@ -38,22 +38,13 @@ route('/secret', function() {
 });
 
 $(function() {
-  /*
   $(document.body).on('keypress', function(e) {
-    console.log(e);
     switch (e.keyCode) {
-      case 'b'.charCodeAt(0):
-        socket.emit('back', 100);
-        break;
-      case 'f'.charCodeAt(0):
-        socket.emit('forward', 100);
-        break;
       case 'r'.charCodeAt(0):
         socket.emit('reset');
         break;
     }
   });
-  */
   
   $('.back[rel=controller]').on('click', function(e) {
     socket.emit('back', 100);
@@ -61,6 +52,14 @@ $(function() {
 
   $('.forward[rel=controller]').on('click', function(e) {
     socket.emit('forward', 100);
+  });
+  
+  $('.right[rel=controller]').on('click', function(e) {
+    socket.emit('right', 15);
+  });
+  
+  $('.left[rel=controller]').on('click', function(e) {
+    socket.emit('left', 15);
   });
 });
 
