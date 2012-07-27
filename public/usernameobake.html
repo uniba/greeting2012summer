@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <![if gte IE 9]>
+    <script src="javascripts/vendor/processing.js"></script>
+    <script src="javascripts/initp5.js"></script>
+  <![endif]>
+</head>
+<body>
+  <div id="container">    
+    <article id="canvas">
+      <![if gte IE 9]>
+        <canvas id="p5stage" data-processing-sources="p5/particles.pde"></canvas>
+      <![endif]>
+    </article>
+  </div>
+</body>
+</html>
