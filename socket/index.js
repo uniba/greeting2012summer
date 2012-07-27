@@ -5,7 +5,7 @@ var inspect = require('util').inspect
   , parseCookie = connect.utils.parseCookie
   , Rail = require('../lib/rail')
   , rail = new Rail()
-  , Neck = require('../lib/nack')
+  , Neck = require('../lib/neck')
   , neck = new Neck(9)
   , Session = connect.middleware.session.Session;
 
