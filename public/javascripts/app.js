@@ -38,22 +38,13 @@ route('/secret', function() {
 });
 
 $(function() {
-  /*
   $(document.body).on('keypress', function(e) {
-    console.log(e);
     switch (e.keyCode) {
-      case 'b'.charCodeAt(0):
-        socket.emit('back', 100);
-        break;
-      case 'f'.charCodeAt(0):
-        socket.emit('forward', 100);
-        break;
       case 'r'.charCodeAt(0):
         socket.emit('reset');
         break;
     }
   });
-  */
   
   $('.back[rel=controller]').on('click', function(e) {
     socket.emit('back', 100);
@@ -61,6 +52,14 @@ $(function() {
 
   $('.forward[rel=controller]').on('click', function(e) {
     socket.emit('forward', 100);
+  });
+  
+  $('.right[rel=controller]').on('click', function(e) {
+    socket.emit('right', 15);
+  });
+  
+  $('.left[rel=controller]').on('click', function(e) {
+    socket.emit('left', 15);
   });
 });
 
@@ -85,23 +84,39 @@ $(function() {
   });
   
   function createSpirit(data) {
-    var container = document.createElement('div')
-      , img = document.createElement('img')
+    var canvas = document.createElement('canvas')
+      , ghost = new Image()
+      , ctx = canvas.getContext('2d')
+      , container = document.createElement('div')
       , avatar = document.createElement('img');
     
-    $(container).addClass('spirits');
-    $(img).hide().attr('src', '/images/fire_anime.gif');
+    canvas.width = 100;
+    canvas.height = 126;
     
-    if (data) {
-      avatar.src = 'data:image/png;base64,' + data;
-      $(avatar).addClass('avatar');
-      container.appendChild(avatar);
-    }
+    ghost.onload = function(e) {
+      if (data) {
+        avatar.onload = function(e) {
+          var buffer = document.createElement('canvas')
+            , bufCtx = buffer.getContext('2d');
+          
+          buffer.width = ghost.width;
+          buffer.height = ghost.height;
+          
+          bufCtx.drawImage(ghost, 0, 0, ghost.width, ghost.height);
+          bufCtx.drawImage(avatar, 78, 84, 220, 220);
+          ctx.drawImage(buffer, 0, 0, 100, 126);
+                    
+          $(container).fadeIn();
+        };
+        avatar.src = 'data:image/png;base64,' + data;
+      }
+    };
     
-    container.appendChild(img);
+    ghost.src = '/images/sns_obake.png';
+    
+    $(container).addClass('spirits').hide();
+    container.appendChild(canvas);
     document.body.appendChild(container);
-    
-    $(img).fadeIn();
     
     return container;
   }
