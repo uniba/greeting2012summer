@@ -36,6 +36,7 @@ app.get('/index', routes.index);
 app.get('/about', routes.about);
 app.get('/console', routes.console);
 app.get('/secret', routes.secret);
+app.get('/coming', routes.coming);
 app.get('/screen/:name', function(req, res) {
   res.render('screen');
 });
