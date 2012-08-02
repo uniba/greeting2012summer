@@ -25,13 +25,17 @@ app.helpers({
 
 app.dynamicHelpers({
     action: function(req, res) {
-      return req.path.replace('/', ' ').trim().replace(' ', '/') || 'index';
+      // return req.path.replace('/', ' ').trim().replace(' ', '/') || 'index';
+      return '';
     }
 });
 
 // Routes
 
-app.get('/', routes.index);
+// app.get('/', routes.index);
+app.get('/', function(req, res) {
+  res.render('comingsoon');
+});
 app.get('/index', routes.index);
 app.get('/about', routes.about);
 app.get('/console', routes.console);
