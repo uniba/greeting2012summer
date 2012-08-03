@@ -5,8 +5,6 @@ var inspect = require('util').inspect
   , parseCookie = connect.utils.parseCookie
   , Rail = require('../lib/rail')
   , rail = new Rail()
-  , Neck = require('../lib/neck')
-  , neck = new Neck(true, 9)
   , Session = connect.middleware.session.Session;
 
 module.exports = function(app) {
@@ -44,11 +42,11 @@ module.exports = function(app) {
     });
     
     client.on('right', function(val) {
-      neck.right(val);
+      rail.right(val);
     });
     
     client.on('left', function(val) {
-      neck.left(val);
+      rail.left(val);
     });
     
     client.on('reset', function() {
