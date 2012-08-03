@@ -1,3 +1,7 @@
+#include <Servo.h> 
+
+Servo neckServo; 
+
 int dirPin  = 4;
 int stepperPin = 3;
 int sleepPin = 7;
@@ -8,6 +12,8 @@ long currentStep;
 char commandByte;
 int speedDivision;
 int stepNum;
+int stepNum2;
+int neckAngle;
 int stopVlueZero;
 int stopVlueEnd;
 
@@ -16,6 +22,8 @@ bool saftyStop = false;
 void setup () {
   currentStep = 0;
   Serial.begin( 9600 );
+  
+  neckServo.attach(9); 
 
   pinMode ( dirPin, OUTPUT );
   pinMode ( stepperPin, OUTPUT );
@@ -60,14 +68,20 @@ void loop(){
           case 'R':
             resetZero();
             break;
+          case 'N':
+            stepNum = stepNum - 48;
+            stepNum2 = Serial.read() - 48;
+            
+            neckAngle = stepNum * 10 + stepNum2;
+            neckAngle = (neckAngle > 60 ? 60 : neckAngle) * 2 + 30;
+            
+            neckServo.write(neckAngle);
+            Serial.println(neckAngle);
+            Serial.println(stepNum);
+            Serial.println(stepNum2);
+            break;
            default:
              break;
-          case 'l':
-            sweepLeft();
-            break;
-          case 'r':
-            sweepRight();
-            break;
         }
 //      }
     }
