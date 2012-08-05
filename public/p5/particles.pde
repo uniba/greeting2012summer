@@ -4,7 +4,7 @@ int wh = 768;  // 描画領域の高さ
 int m  = 0;    // 四辺の計算上のマージン(外へ飛び出すパーティクルの処理用)
 int ws = 200;  // パーティクル速度の初期値
 int ms = 20; // masterのスピード初期値
-int fontSize = 20;
+int fontSize = 64;
 int counter = 0;
 
 // パーティクルオブジェクトの配列を作成
