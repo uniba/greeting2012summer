@@ -196,8 +196,8 @@ $(function() {
    });
   }, 1600);
   setInterval(function(){
-    $('#console div.akumakun').animate({top:'-100px'},1000,'easeInOutQuad',function(){
-      $('#console div.akumakun').animate({top:'0px'},500,'easeOutBounce')
+    $('#console div.akumakun').animate({top:'-30px'},1000,'easeInOutQuad',function(){
+      $('#console div.akumakun').animate({top:'0px'},500,'easeInOutQuad')
    });
   }, 2000);
 });
