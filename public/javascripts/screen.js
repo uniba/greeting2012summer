@@ -1,7 +1,16 @@
 // (function() {
 
 var socket = io.connect()
-  , screen = socket.of(location.pathname);
+  , screen = socket.of(location.pathname)
+  , frame = document.createElement('img');
+
+$.holdReady(true);
+
+frame.onload = function() {
+  $.holdReady(false);
+}
+
+frame.src = '/images/deadee_frame.png';
 
 $(function() {
   var canvas = document.createElement('canvas')
@@ -11,6 +20,9 @@ $(function() {
   canvas.height = window.innerHeight;
   canvas.className = 'deadee-sepia';
   
+  frame.width = window.innerWidth;
+  frame.height = window.innerHeight;
+  
   screen.on('image', function(type, base64) {
     var image = new Image();
     image.onload = function(e) {
@@ -18,7 +30,8 @@ $(function() {
         , width = image.width * ratio
         , height = image.height * ratio;
       $(canvas).animate({ opacity: 0 }, function() {
-        ctx.drawImage(image, 0, ~~(canvas.height / 2 - height / 2), ~~width, ~~width);
+        ctx.drawImage(image, 0, ~~(canvas.height / 2 - height / 2), ~~width, ~~height);
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height)
         $(canvas).animate({ opacity: 1 });
       });
     };
