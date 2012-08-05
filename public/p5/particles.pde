@@ -12,7 +12,7 @@ Particle[] particles = new Particle[floor(ww / fontSize) * floor(wh / fontSize)]
 
 Master master = new Master(ww / 2, wh / 2);
 
-String twittername = "shianbrown";
+String twittername = "Uniba Inc.";
 int[] twitternameArray = new int[twittername.length()];
 int nameCounter = 0;
 
@@ -57,13 +57,38 @@ void draw() {
   counter += 1;
   if (200 < counter && counter < 260) {
     for (int i = 1; i < twitternameArray.length; i += 1) {
-      particles[twitternameArray[i]].x += ((ww / 2 + i * fontSize) - particles[twitternameArray[i]].x) / 10;
+      particles[twitternameArray[i]].x += ((ww / 2 + (- twitternameArray.length / 2 + i) * fontSize) - particles[twitternameArray[i]].x) / 10;
       particles[twitternameArray[i]].y += (wh / 2 - particles[twitternameArray[i]].y) / 10;
     }
   }
   if (260 < counter) {
     counter = 0;
   }
+}
+
+void updateTwittername(String str) {
+  twittername = str;
+  twitternameArray = new int[twittername.length()];
+
+  // パーティクルの文字、色、スピードを再設定
+  nameCounter = 0;
+  for (int i = 0; i < particles.length; i += 1) {
+    particles[i].x = ww / 2 + round(i % (ww / fontSize)) * fontSize / 10;
+    particles[i].y = wh / 2;
+    particles[i].s = ws;
+    particles[i].ss = ws;
+    particles[i].c = color(int(random(200)) + 55, int(random(50)), int(random(50)), 255);
+    particles[i].charPos = round(random(twittername.length() - 1));
+    if (particles[i].charPos == nameCounter) {
+      particles[i].s = 230;
+      particles[i].ss = 230;
+      particles[i].c = color(255, 255, 255, 255);
+      nameCounter += 1;
+      twitternameArray[nameCounter] = i;
+    }
+  }
+  master.x = ww/2;
+  master.y = wh/2;
 }
 
 // パーティクルオブジェクトのクラス定義
@@ -150,5 +175,3 @@ class Master {
     }
   }
 }
-
-
