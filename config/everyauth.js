@@ -31,6 +31,10 @@ module.exports = function(app) {
       var promise = this.Promise()
         , options = { url: data.oauthUser.profile_image_url, encoding: 'binary' };
       
+      for (var i in data) {
+        session[i] = data[i];
+      }
+      
       request(options, function(err, resp, body) {
         session.avatar = new Buffer(body, 'binary').toString('base64');
         session.save(function(err) {
@@ -57,6 +61,10 @@ module.exports = function(app) {
       var promise = this.Promise()
         , url = url = 'http://graph.facebook.com/' + data.oauthUser.id + '/picture'
         , options = { url: url, encoding: 'binary' };
+      
+      for (var i in data) {
+        session[i] = data[i];
+      }
       
       request(options, function(err, resp, body) {
         session.avatar = new Buffer(body, 'binary').toString('base64');
