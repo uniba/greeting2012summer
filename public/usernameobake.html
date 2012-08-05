@@ -6,11 +6,22 @@
   <style>
   * { margin: 0; padding: 0; }
   </style>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <![if gte IE 9]>
     <script src="javascripts/vendor/processing.js"></script>
     <script src="javascripts/initp5.js"></script>
   <![endif]>
+  <script>
+  var socket = io.connect()
+    , room = socket.of('/screen/small');
+  
+  $(function() {
+    room.on('name', function(name) {
+      p5 && p5.updateTwittername(name);
+    });
+  });
+  </script>
 </head>
 <body>
   <div id="container">    

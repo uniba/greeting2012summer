@@ -55,11 +55,14 @@ module.exports = function(app) {
   });
   
   app.on('twitterLogin', function(session) {
+    small.emit('name', session.screen_name);
     small.emit('image', 'image/png', session.avatar);
     large.emit('image', 'image/png', session.avatar);
   });
   
   app.on('facebookLogin', function(session) {
+    small.emit('name', session.username);
+    small.emit('image', 'image/png', session.avatar);
     small.emit('image', 'image/jpg', session.avatar);
     large.emit('image', 'image/jpg', session.avatar);
   });
