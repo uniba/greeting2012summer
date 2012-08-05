@@ -23,7 +23,21 @@ var music
   , socket = io.connect()
   , cursor = io.connect('/cursor');
 
-route(/^\/(console|about)?$/, function() {
+route('/', function() {
+  var audio = music = new Audio();
+  audio.src = '/assets/music.m4a';
+  audio.loop = true;
+  audio.play();
+});
+
+route('/about', function() {
+  var audio = music = new Audio();
+  audio.src = '/assets/music.m4a';
+  audio.loop = true;
+  audio.play();
+});
+
+route('/console', function() {
   var audio = music = new Audio();
   audio.src = '/assets/music.m4a';
   audio.loop = true;
