@@ -1,0 +1,32 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/Users/sei/.nodebrew/current/bin/npm',
+1 verbose cli   'start',
+1 verbose cli   'PORT=4000' ]
+2 info using npm@1.1.30
+3 info using node@v0.6.19
+4 verbose node symlink /Users/sei/.nodebrew/current/bin/node
+5 verbose config file /Users/sei/.npmrc
+6 verbose config file /Users/sei/.nodebrew/current/etc/npmrc
+7 verbose config file /Users/sei/.nodebrew/node/v0.6.19/lib/node_modules/npm/npmrc
+8 verbose read json /Users/sei/Repositories/greeting2012summer/node_modules/PORT=4000/package.json
+9 error Error: ENOENT, open '/Users/sei/Repositories/greeting2012summer/node_modules/PORT=4000/package.json'
+9 error  { [Error: ENOENT, open '/Users/sei/Repositories/greeting2012summer/node_modules/PORT=4000/package.json']
+9 error   errno: 34,
+9 error   code: 'ENOENT',
+9 error   path: '/Users/sei/Repositories/greeting2012summer/node_modules/PORT=4000/package.json' }
+10 error You may report this log at:
+10 error     <http://github.com/isaacs/npm/issues>
+10 error or email it to:
+10 error     <npm-@googlegroups.com>
+11 error System Darwin 12.0.0
+12 error command "node" "/Users/sei/.nodebrew/current/bin/npm" "start" "PORT=4000"
+13 error cwd /Users/sei/Repositories/greeting2012summer
+14 error node -v v0.6.19
+15 error npm -v 1.1.30
+16 error path /Users/sei/Repositories/greeting2012summer/node_modules/PORT=4000/package.json
+17 error code ENOENT
+18 error message ENOENT, open '/Users/sei/Repositories/greeting2012summer/node_modules/PORT=4000/package.json'
+19 error errno 34
+20 error 34 errno
+21 verbose exit [ 34, true ]
