@@ -4,7 +4,7 @@ int wh = 768;  // 描画領域の高さ
 int m  = 0;    // 四辺の計算上のマージン(外へ飛び出すパーティクルの処理用)
 int ws = 200;  // パーティクル速度の初期値
 int ms = 20; // masterのスピード初期値
-int fontSize = 64;
+int fontSize = 72;
 int counter = 0;
 
 // パーティクルオブジェクトの配列を作成
@@ -77,7 +77,7 @@ void updateTwittername(String str) {
     particles[i].y = wh / 2;
     particles[i].s = ws;
     particles[i].ss = ws;
-    particles[i].c = color(int(random(200)) + 55, int(random(50)), int(random(50)), 255);
+    particles[i].c = color(255, int(random(100)), int(random(100)), 255);
     particles[i].charPos = round(random(twittername.length() - 1));
     if (particles[i].charPos == nameCounter) {
       particles[i].s = 230;
@@ -105,7 +105,7 @@ class Particle {
     this.s  = ws;
     this.ss = this.s;
     this.d  = random(TWO_PI);
-    this.c  = color(int(random(200)) + 55, int(random(50)), int(random(50)), 255);
+    this.c  = color(255, int(random(100)), int(random(100)), 255);
     this.charPos = round(random(twittername.length() - 1));
   }
   
