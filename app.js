@@ -32,7 +32,7 @@ app.dynamicHelpers({
 
 // Routes
 
-app.all('*', function(req, res) {
+app.all('/', function(req, res) {
   res.render('end');
 });
 
