@@ -25,24 +25,29 @@ app.helpers({
 
 app.dynamicHelpers({
     action: function(req, res) {
-      return req.path.replace('/', ' ').trim().replace(' ', '/') || 'index';
+      return '';
+      // return req.path.replace('/', ' ').trim().replace(' ', '/') || 'index';
     }
 });
 
 // Routes
 
-app.get('/', routes.index);
-app.get('/index', routes.index);
-app.get('/about', routes.about);
-app.get('/console', routes.console);
-app.get('/secret', routes.secret);
-app.get('/coming', routes.coming);
-app.get('/screen/:name', function(req, res) {
-  res.render('screen');
+app.all('/', function(req, res) {
+  res.render('end');
 });
 
+// app.get('/', routes.index);
+// app.get('/index', routes.index);
+// app.get('/about', routes.about);
+// app.get('/console', routes.console);
+// app.get('/secret', routes.secret);
+// app.get('/coming', routes.coming);
+// app.get('/screen/:name', function(req, res) {
+//   res.render('screen');
+// });
+
 app.listen(process.env.PORT || 3000, function(){
-  var io = require('./socket')(app);
+  // var io = require('./socket')(app);
   
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
