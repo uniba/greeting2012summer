@@ -1,0 +1,117 @@
+body {
+  color: #fff;
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#footer {
+  margin-bottom: 100px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.counter {
+  margin-bottom: 36px;
+}
+
+.counter p {
+  color: #fff;
+}
+
+#container {
+  position: relative;
+  margin: 0 auto;
+  width: 960px;
+}
+
+#comingsoon #content #end {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#comingsoon #content #movie {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+#comingsoon #content #concept p {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 11px;
+  color: #fff;
+  line-height: 2em;
+  letter-spacing: .1em;
+}
+
+#index #social {
+  margin-top: 16px;
+}
+
+#index #social #tw {
+  position: absolute;
+}
+
+#index #social #fb {
+  position: absolute;
+  left: 100px;
+}
+
+#index #header {
+  margin-top: 0;
+}
+
+#index .logo {
+  position: absolute;
+  text-align: center;
+  margin-top: 150px;
+  margin-left: 179px;
+}
+
+#index .obake {
+  position: absolute;
+  top: 90px;
+  left: 660px;
+  z-index: -1;
+}
+
+#index .about-balloon {
+  position: absolute;
+  top: 30px;
+  left: 779px;
+}
+
+#index .login {
+  margin-bottom: 30px;
+}
+
+#index ul {
+  margin-bottom: 50px;
+}
+
+#index ul li {
+  margin-bottom: 22px;
+  margin-right: 20px;
+  display: inline-block;
+}
+
+#index ul li.login {
+  margin-bottom: 33px;
+}
+
+#index #content {
+  margin-bottom: 50px;
+  padding-top: 553px;
+  text-align: center;
+}
+
+#index .suikakun {
+  text-align: center;
+  margin-bottom: 35px;
+}
